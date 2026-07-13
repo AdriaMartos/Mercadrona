@@ -21,7 +21,7 @@ The forms constitute the graphical user interface and are responsible for handli
 The auxiliary classes implement the core functionality of the application. They define the data structures required to represent customers, companies, products, orders, drones, and scenarios, as well as the algorithms responsible for route planning, order assignment, and conflict resolution between drones.
 
 The following figure illustrates the application's form hierarchy, showing the relationships between the different windows and the navigation flow followed by the user during the simulation.
-![Main Window](docs/images/Application Form Hierarchy.jpg)
+![Application Form Hierarchy](docs/images/application-form-hierarchy.jpg)
 
 ---
 
