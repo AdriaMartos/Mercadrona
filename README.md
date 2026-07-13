@@ -12,6 +12,19 @@ The application has been developed following a modular design, making maintenanc
 
 ---
 
+## Repository Structure
+
+The repository is organized into the following main components:
+
+- **csDroneLink/** – Core communication library used to control and monitor UAVs through the MAVLink protocol.
+- **SimpleExample/** – Complete implementation of the Mercadrona application, including all Windows Forms, business logic, simulation algorithms, and fleet management features. This folder contains the full source code of the project described in this README.
+- **docs/** – Project documentation, including the application form hierarchy, screenshots, and the complete project report with a detailed explanation of the system architecture and implemented algorithms.
+- **packages/** – NuGet packages required by the solution.
+
+This organization separates the reusable communication library from the application built on top of it, making the project easier to understand, maintain, and extend.
+
+---
+
 ## Application Structure
 
 The application is organized into a collection of forms and classes, each implementing a specific part of the system. This modular organization separates the graphical user interface from the business logic, simplifying maintenance and improving the scalability of the application.
@@ -61,9 +74,13 @@ Mercadrona integrates a complete set of functionalities that automate the entire
 
 One of the application's core features is the automatic management of delivery orders. Whenever a new order is created, it is placed into a waiting queue until an available drone can execute the mission. The system continuously evaluates the status of all connected drones and assigns each order to the first drone that satisfies the necessary operational conditions.
 
-Route planning is another fundamental component of the application. Before any mission begins, the system computes a safe trajectory between the departure point and the destination while avoiding all restricted flight zones defined within the scenario. Whenever a direct path intersects an obstacle, a navigation graph is automatically generated, and the A* algorithm is applied to compute the shortest valid route.
+The application supports configurable payload capacities for every drone. Before starting the simulation, the operator can define the maximum carrying capacity of each drone. During the mission assignment process, deliveries are only assigned to drones capable of transporting the requested payload, resulting in a more realistic fleet management system.
+
+Route planning is another fundamental component of the application. Before any mission begins, the system computes a safe trajectory between the departure point and the destination while avoiding all restricted flight zones defined within the scenario. Whenever a direct path intersects an obstacle, a navigation graph is automatically generated, and the A* search algorithm is applied to compute the shortest valid route.
 
 Throughout the simulation, the position of every drone is continuously monitored. This information allows the application to display real-time flight trajectories on the map, update mission status, and maintain a complete flight event history for each drone.
+
+To improve fleet monitoring, the application also includes a real-time drone status panel based on colored indicators. Each drone is represented by a colored cube whose color changes according to its current operational state, allowing the operator to quickly identify whether the drone is idle, assigned to a mission, flying, delivering a package, returning to base, or completing other mission phases.
 
 Another essential feature is the conflict detection and resolution system. The algorithm continuously monitors the distance between every active drone and detects situations in which two drones may approach each other below a predefined safety threshold. When a conflict is detected, the system determines which drone should yield while allowing the other to continue its mission, preventing collisions without requiring operator intervention.
 
@@ -99,12 +116,12 @@ After the connection has been established, the user only needs to load one of th
 
 ## Future Work
 
-Although Mercadrona implements all the core functionalities required to manage a drone fleet within a simulated environment, several improvements could be incorporated in future versions.
+Although Mercadrona already implements a complete fleet management system for simulated UAV operations, several improvements could be incorporated in future versions.
 
-One possible enhancement is the implementation of more advanced optimization algorithms for both order assignment and route planning, reducing delivery times as the number of drones and delivery requests increases.
+The most significant extension would be adapting the application to operate with real drones instead of a purely simulated environment. This would require integrating the system with real flight controllers, validating communications under real operating conditions, and incorporating additional safety mechanisms such as geofencing, emergency procedures, battery-aware mission planning, and fault-tolerant communication.
 
-Another interesting extension would be adapting the application to operate with real drones instead of a simulated environment, allowing the performance of the system to be evaluated under real operational conditions.
+Future developments could also include more advanced optimization algorithms for fleet coordination and order assignment, reducing delivery times while improving resource utilization as the number of drones and delivery requests increases.
 
-Future versions could also integrate database management systems to permanently store information about customers, companies, products, delivery orders, and flight histories, facilitating data analysis and long-term operation management.
+Another possible enhancement would be the integration of database management systems to permanently store operational data, including customers, companies, products, delivery orders, flight histories, and mission logs.
 
-Finally, additional features related to intelligent airspace management, U-Space integration, and artificial intelligence techniques could be incorporated to further improve decision-making and fleet coordination during delivery operations.
+Finally, support for U-Space/UTM services, weather-aware route planning, and artificial intelligence techniques for autonomous decision-making could further improve the efficiency and scalability of the platform when operating in real-world environments.
